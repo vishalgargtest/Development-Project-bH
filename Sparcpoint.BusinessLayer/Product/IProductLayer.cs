@@ -11,6 +11,6 @@ namespace Sparcpoint.BusinessLayer.Product
     public interface IProductLayer
     {
         Task<Products> AddProduct(ProductDomain product);
-        Task<List<Products>> SearchProduct(FilterModel filterModel);
+        Task<List<Products>> SearchProduct(FilterParam filterModel);
     }
 }

@@ -27,12 +27,11 @@ namespace Sparcpoint.DataLayer.Repository
             await _context.SaveChangesAsync();
             return product;
         }
-        public async Task<List<Products>> SearchProduct(FilterModel filterModel)
+        public async Task<List<Products>> SearchProduct(FilterParam filterModel)
         {
             List<Products> final = null;
 
             _context = new ProductDBContext(_configuration);
-            //Iqueryable variable to prevent calling SQL repeatedly
             IQueryable<Products> c = _context.Products.AsQueryable();
 
             if (filterModel.Name != null)

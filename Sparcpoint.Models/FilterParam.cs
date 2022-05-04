@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Sparcpoint.Models
 {
-    public class FilterModel
+    public class FilterParam
     {
         public string Name { get; set; }
         public string Description { get; set; }

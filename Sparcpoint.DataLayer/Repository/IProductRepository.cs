@@ -8,7 +8,6 @@ namespace Sparcpoint.DataLayer.Repository
 {
     public interface IProductRepository
     {
-        Task<List<Products>> GetProducts();
         Task<Products> AddProduct(Products product);
         Task<List<Products>> SearchProduct(FilterModel filterModel);
     }

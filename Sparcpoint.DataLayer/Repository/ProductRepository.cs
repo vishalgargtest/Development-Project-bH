@@ -27,11 +27,6 @@ namespace Sparcpoint.DataLayer.Repository
             await _context.SaveChangesAsync();
             return product;
         }
-
-        public async Task<List<Products>> GetProducts()
-        {
-            return null;
-        }
         public async Task<List<Products>> SearchProduct(FilterModel filterModel)
         {
             List<Products> final = null;

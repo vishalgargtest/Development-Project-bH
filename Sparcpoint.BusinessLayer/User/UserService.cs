@@ -19,7 +19,7 @@ namespace Sparcpoint.BusinessLayer.User
         }
         private List<Sparcpoint.Models.User> _users = new List<Sparcpoint.Models.User>
         {
-            new Sparcpoint.Models.User { Id = 1, UserName = "bharat", Password = "pass@1234", Role = "admin"},
+            new Sparcpoint.Models.User { Id = 1, UserName = "komal", Password = "pass@1234", Role = "admin"},
             new Sparcpoint.Models.User { Id = 2, UserName = "user2", Password = "password2", Role = "guest"}
         };
 

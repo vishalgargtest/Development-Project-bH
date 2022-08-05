@@ -46,6 +46,7 @@ namespace Interview.Web
             services.AddScoped<IDataSerializer,JsonDataSerializer>();
             services.AddScoped<IProductDBContext, ProductDBContext>();
             services.AddScoped<IUserService, UserService>();
+            //AUthorization token for calling the endpoint
             var key = Encoding.ASCII.GetBytes(Configuration["ApiKey"]);
             services.AddAuthentication(x =>
             {

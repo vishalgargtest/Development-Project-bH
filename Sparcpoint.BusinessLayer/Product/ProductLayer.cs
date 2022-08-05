@@ -19,15 +19,13 @@ namespace Sparcpoint.BusinessLayer.Product
             _productRepository = productRepository;
         }
         public async Task<Products> AddProduct(ProductDomain product) {
-            //Mapping Domain Object to Entity Object
             var productEntity  = ProductEntityMapper.MapDomainToEntity(product);
-            //InstanceId to be made common to avoid foreign key violation
             productEntity.Attributes.ToList().ForEach(x => x.InstanceId = productEntity.InstanceId);
             productEntity.Categories.ToList().ForEach(x => x.InstanceId = productEntity.InstanceId);
             var productAdded = await _productRepository.AddProduct(productEntity);
             return productAdded;
         }
-        public async Task<List<Products>> SearchProduct(FilterModel filterModel) {
+        public async Task<List<Products>> SearchProduct(FilterParam filterModel) {
             var productFiltered = await _productRepository.SearchProduct(filterModel);
             return productFiltered;
         }

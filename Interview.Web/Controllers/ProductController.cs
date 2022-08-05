@@ -13,29 +13,29 @@ using System.Threading.Tasks;
 namespace Interview.Web.Controllers
 {
     [Route("api/v1/products")]
-    [Authorize]
+    
     public class ProductController : Controller
     {
         private readonly IProductLayer _productManager;
         private readonly IDataSerializer _serialize;
         public ProductController(IProductLayer productManager, IDataSerializer serialize)
         {
-            //Dependency Injection - Configured Startup Class
             _productManager = productManager;
             _serialize = serialize;
         }
 
         [HttpPost]
+        [Authorize(Roles ="admin")]
         public async Task<IActionResult> AddProducts([FromBody] ProductDto product)
         {
             var productList = await _productManager.AddProduct(ProductEntityMapper.MapDTOtoDomain(product));
             return (IActionResult)Ok(_serialize.Serialize<Products>(productList));
         }
         [HttpGet]
+        [Authorize]
         public async Task<IActionResult> SearchProducts(string name, string description, string productImageUri, string validSkusGuid, string category)
         {
-            //Creating FilterModel from the parameters passed
-            FilterModel product = new FilterModel()
+            FilterParam product = new FilterParam()
             {
                 Name = name,
                 Description = description,

@@ -20,7 +20,6 @@ namespace Interview.Web.Controllers
  
         public UserController(IUserService userService)
         {
-            //Dependency Injection - Configured Startup Class
             _userService = userService;
         }
 

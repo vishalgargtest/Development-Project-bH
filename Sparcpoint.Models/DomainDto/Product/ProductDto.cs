@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 
 namespace Sparcpoint.Models.DomainDto.Product
 {
     public class ProductDto
     {
+        [Required]
         public string Name { get; set; }
         public string Description { get; set; }
         public string ProductImageUri { get; set; }

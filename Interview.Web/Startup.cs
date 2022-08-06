@@ -1,4 +1,5 @@
 using Interview.Web.Extension;
+using Interview.Web.Middlewares;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -50,6 +51,7 @@ namespace Interview.Web
             services.AddScoped<IDataSerializer,JsonDataSerializer>();
             services.AddScoped<IProductDBContext, ProductDBContext>();
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<ModelValidationAttribute>();
             //AUthorization token for calling the endpoint
             services.ConfigureAuth(Configuration);
 

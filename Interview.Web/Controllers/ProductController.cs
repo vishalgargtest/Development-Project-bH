@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Interview.Web.Middlewares;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Sparcpoint;
@@ -29,6 +30,7 @@ namespace Interview.Web.Controllers
 
         [HttpPost]
         [Authorize(Roles ="admin")]
+        [ModelValidation]
         public async Task<IActionResult> AddProducts([FromBody] ProductDto product)
         {
             _logger.LogInformation("Add Product Called with Request {0}",_serialize.Serialize<ProductDto>(product));
@@ -37,6 +39,7 @@ namespace Interview.Web.Controllers
         }
         [HttpGet]
         [Authorize]
+        [ModelValidation]
         public async Task<IActionResult> SearchProducts(string name, string description, string productImageUri, string validSkusGuid, string category)
         {
             FilterParam filterParam = new FilterParam()

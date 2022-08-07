@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Interview.Web.Middlewares;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using Sparcpoint;
 using Sparcpoint.BusinessLayer.Product;
 using Sparcpoint.Mappers.DomainToEntity;
@@ -18,24 +20,29 @@ namespace Interview.Web.Controllers
     {
         private readonly IProductLayer _productManager;
         private readonly IDataSerializer _serialize;
-        public ProductController(IProductLayer productManager, IDataSerializer serialize)
+        private readonly ILogger<ProductController> _logger;
+        public ProductController(IProductLayer productManager, IDataSerializer serialize, ILogger<ProductController> logger)
         {
             _productManager = productManager;
             _serialize = serialize;
+            _logger = logger;
         }
 
         [HttpPost]
         [Authorize(Roles ="admin")]
+        [ModelValidation]
         public async Task<IActionResult> AddProducts([FromBody] ProductDto product)
         {
+            _logger.LogInformation("Add Product Called with Request {0}",_serialize.Serialize<ProductDto>(product));
             var productList = await _productManager.AddProduct(ProductEntityMapper.MapDTOtoDomain(product));
             return (IActionResult)Ok(_serialize.Serialize<Products>(productList));
         }
         [HttpGet]
         [Authorize]
+        [ModelValidation]
         public async Task<IActionResult> SearchProducts(string name, string description, string productImageUri, string validSkusGuid, string category)
         {
-            FilterParam product = new FilterParam()
+            FilterParam filterParam = new FilterParam()
             {
                 Name = name,
                 Description = description,
@@ -43,7 +50,8 @@ namespace Interview.Web.Controllers
                 ValidSkus = validSkusGuid,
                 Category = category
             };
-            var productList = await _productManager.SearchProduct(product);
+            _logger.LogInformation("SearchProducts Called with Request {0}", _serialize.Serialize<FilterParam>(filterParam));
+            var productList = await _productManager.SearchProduct(filterParam);
             return (IActionResult)Ok(_serialize.Serialize<List<Products>>(productList));
         }
 
